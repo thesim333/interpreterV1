@@ -1,3 +1,5 @@
+# Created by Simon Winder
+
 import re
 from .validate_field import ValidateField
 
