@@ -5,14 +5,15 @@ class InteractiveOrCommandLine(cmd.Cmd):
 
     prompt = '>> '
     intro = "Line Interpreter: Type help to get help to see available commands"
-    doc_header = 'Commands\n to get help type <help command>'
+    doc_header = 'Commands\n   To get help type <help command>'
     misc_header = 'Commands with help available'
     undoc_header = 'To exit type'
     ruler = '-'
+    file_name = ''
 
-    def help_greet(self):
-        print ('\n'.join([ 'greet [person]',
-        'Greet the named person',
+    def help_file_name(self):
+        print ('\n'.join([ 'file_name [file_name]',
+        'Gets the filename to download data from',
         ]))
 
     def help_args(self):
@@ -21,8 +22,9 @@ class InteractiveOrCommandLine(cmd.Cmd):
                            'Type <help command> for further help'
         ]))
 
-    def do_greet(self, line):
-        print ('hello,', line)
+    def do_file_name(self, line):
+        file_name = line
+        print ('File name is :,', line)
 
     def do_EOF(self, line):
         return True
