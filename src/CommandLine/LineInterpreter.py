@@ -5,11 +5,11 @@ class InteractiveOrCommandLine(cmd.Cmd):
 
     prompt = '>> '
     intro = "Line Interpreter: Type help to get help to see available commands"
-    doc_header = 'Commands\n   To get help type <help command>'
-    misc_header = 'Commands with help available'
-    undoc_header = 'To exit type'
-    ruler = '-'
-    file_name = ''
+    #doc_header = 'Commands\n   To get help type <help command>'
+    #misc_header = 'Commands with help available'
+    #undoc_header = 'To exit type'
+    _ruler = '-'
+    _file_name = ''
 
     def help_file_name(self):
         print ('\n'.join([ 'file_name [file_name]',
@@ -22,12 +22,24 @@ class InteractiveOrCommandLine(cmd.Cmd):
                            'Type <help command> for further help'
         ]))
 
+    def do_args(self, args):
+        _args = args
+        print ("in args")
+
+
     def do_file_name(self, line):
         file_name = line
         print ('File name is :,', line)
 
-    def do_EOF(self, line):
-        return True
+    def do_quit(self, arg):
+        sys.exit(1)
+
+    def help_quit(self):
+        print("syntax: quit",)
+        print("-- terminates the application")
+
+    # shortcuts
+    do_q = do_quit
 
 if __name__ == '__main__':
     import sys
