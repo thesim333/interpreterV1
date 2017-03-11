@@ -1,31 +1,42 @@
 # Created by Simon Winder
 
 from .validate_field import ValidateField
+from .age_validate import AgeValidate
 import re
-import datetime
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 
-class DOB(ValidateField):
-    correctDate = None
+class DOB(ValidateField, AgeValidate):
+    __correctDate = None
+    __date = None
 
     def validate(self):
-        if re.match('^[1-31]-[1-12]-[0-9]{4}$', self.field) is None:
+        if re.match('^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$', self._field) is None:
             return 'DOB is not correct format'
 
-        self.check_date()
+        self.__check_date()
 
-        if self.correctDate is True:
+        if self.__correctDate is True:
             return self._valid
         else:
             return 'DOB is not a legal date'
 
-    def check_date(self):
-        day = re.match('^[1-31]', self.field).group(0)
-        month = re.match('(?-)[1-12](?-)', self.field).group(0)
-        year = re.match('[0-9]{4}$', self.field).group(0)
+    def __check_date(self):
+        date_fields = self._field.split('-')
 
         try:
-            new_date = datetime.datetime(int(year),int(month),int(day))
-            self.correctDate = True
+            self.__date = date(int(date_fields[2]), int(date_fields[1]), int(date_fields[0]))
+            self.__correctDate = True
         except ValueError:
-            self.correctDate = False
+            self.__correctDate = False
+
+    def check_age_against_date(self, age):
+        today = date.today()
+        date_fields = self._field.split('-')
+        self.__date = date(int(date_fields[2]), int(date_fields[1]), int(date_fields[0]))
+        rd = relativedelta(today, self.__date)
+        if rd.years == int(age):
+            return self._valid
+        else:
+            'Age does not match DOB'
