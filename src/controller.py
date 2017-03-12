@@ -15,6 +15,10 @@ class Controller:
         # data_in_csv = self.csv_view.get_input('db.csv')
         data_in_csv = self.csv_view.get_input(file_name)
         # calls view to output data in the csv file
+
+        # send the input from the file to the model
+        self.model.employee_info(data_in_csv)
+
         return self.csv_view.output(data_in_csv)
 
     def start(self):
@@ -22,10 +26,4 @@ class Controller:
             self.command_view.onecmd(' '.join(argv[1:]))
         else:
             self.command_view.cmdloop()
-        # self.command_view.start()
-        # my_input = self.command_view.get_input(
-        #     'Do you want to see everyone in my db?[y/n]')
-        # if my_input == 'y':
-        #     return self.show_all()
-        # else:
-        #     return self.command_view.stop()
+

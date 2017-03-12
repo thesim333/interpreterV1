@@ -16,6 +16,8 @@ class CsvFileView(View):
     def get_input(self, file_name):
         read_csv = ""
         with open(file_name, newline='') as file:
+            # the csv file is converted to lists of lists
+            # csv.reader does not retain information once the file is closed
             read_csv = list(csv.reader(file, delimiter=','))
         return read_csv
 

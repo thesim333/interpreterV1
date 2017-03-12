@@ -10,7 +10,7 @@ Thursday 8 March 2017 - Pippa Crawshaw
 * Command Line added
 A simple test of the use of the cmd model
 **************************************************
-???? - Simon
+???? - Simon Winder
 
 *  validator added
 Validator is a set of classes that allow validate the employee fields
