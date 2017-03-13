@@ -1,3 +1,14 @@
+***********************************************
+Tuesday 14 March 2017 - Pippa Crawshaw
+
+* Set up V2
+* Updated version of VMC
+First pass validation using a generic model class
+Removal of CommandLine directory
+************************************************
+Saturday 11 March 2017 - Simon Winder
+
+* Set up unit tests
 **************************************************
 Saturday 11 March 2017 - Pippa Crawshaw
 
