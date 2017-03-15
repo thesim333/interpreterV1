@@ -11,7 +11,7 @@ class TextFileReaderTests(unittest.TestCase):
         self.file_not_found = r"File C:\Users\lamee\Documents\TestFile2.txt Not Found"
 
     def test_valid_file(self):
-        file_path = r"C:\Users\lamee\Documents\TestFile1.txt"
+        file_path = r"C:\Users\lamee\Documents\TestFile3.txt"
         file_contents = self.file_reader.get_file_data(file_path)
         self.assertEqual(file_contents, self.file_contents)
 

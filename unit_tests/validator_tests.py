@@ -186,6 +186,3 @@ class ValidatorUnitTests(unittest.TestCase):
         age = Age(self.valid_age2)
         dob.validate()
         self.assertNotEqual(dob.check_age_against_date(age.get_field()), self.valid)
-
-if __name__ == '__main__':
-    unittest.main()

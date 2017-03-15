@@ -5,6 +5,9 @@ from abc import abstractmethod
 
 
 class ValidateField(metaclass=ABCMeta):
+    """
+    Abstract class for fields to be validated
+    """
     _valid = "Valid"
 
     def __init__(self, field):
