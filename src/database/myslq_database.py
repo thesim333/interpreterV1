@@ -1,18 +1,21 @@
 # Created by Simon Winder
 
 from .database import Database
-import pymysql
+import sqlite3
 
 
 class DatabaseMySQL(Database):
     """
     Class for connecting with the mySQL db
     """
+    def __init__(self):
+        Database.__init__(self)
+
     def _open(self):
         """
         Opens the db connection
         """
-        self._connection = pymysql.connect(self._host, self._user, self._password, self._database)
+        self._connection = sqlite3.connect(self._host, self._user, self._password, self._database)
         self._session = self._connection.cursor()
 
     def _close(self):

@@ -23,8 +23,8 @@ class FileReader(FileBase):
                 file_list.append(split_line)
 
             return file_list
-        except FileNotFoundError:
-            return "File {} Not Found".format(file_path)
+        except FileNotFoundError as e:
+            return e
 
     @staticmethod
     def __into_parts(line):

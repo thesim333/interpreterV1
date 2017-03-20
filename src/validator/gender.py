@@ -14,6 +14,6 @@ class Gender(ValidateField):
         :return: Valid or Not M or F
         """
         if re.match('^(M|F)$', self._field) is not None:
-            return self._valid
+            return self.VALID
         else:
             return 'Not M or F'

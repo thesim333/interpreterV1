@@ -1,0 +1,11 @@
+{
+  "mysql":{
+    "host":"sql12.freemysqlhosting.net",
+    "user":"sql12163540",
+    "passwd":"LGj2eUHwim",
+    "db":"sql12163540"
+  },
+  "pickle":{
+    "file":"my_pickle.txt"
+  }
+}

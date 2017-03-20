@@ -18,4 +18,4 @@ class Age(ValidateField):
         elif int(self._field) < 15 or int(self._field) > 81:
             return 'Age must be be 14 < 80'
         else:
-            return self._valid
+            return self.VALID

@@ -8,7 +8,7 @@ class ValidateField(metaclass=ABCMeta):
     """
     Abstract class for fields to be validated
     """
-    _valid = "Valid"
+    VALID = "Valid"
 
     def __init__(self, field):
         self._field = field

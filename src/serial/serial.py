@@ -35,5 +35,5 @@ class Serial(SerialBase):
             content = pickle.load(file_object)
             file_object.close()
             return content
-        except FileNotFoundError:
-            return 'Could not open {}'.format(file)
+        except FileNotFoundError as e:
+            return e

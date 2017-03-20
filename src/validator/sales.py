@@ -14,6 +14,6 @@ class Sales(ValidateField):
         :return: Sales must be 2 or 3 numbers
         """
         if re.match('^[0-9]{2,3}$', self._field) is not None:
-            return self._valid
+            return self.VALID
         else:
             return 'Sales must be 2 or 3 numbers'
