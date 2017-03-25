@@ -2,14 +2,12 @@
 
 import cmd
 import sys
+from .view_base import ViewBase
 
 
-class View(cmd.Cmd):
+class View(cmd.Cmd, ViewBase):
     __controller = None
     prompt = ">"
-    __line = "0 = EmpID, 1 = Gender, 2 = Age, 3 = Sales, 4 = BMI, 5 = Salary, 6 = DOB"
-    __line_for_verify = ['0', '1', '2', '3', '4', '5' '6']
-    __reverse_line = {'EmpID': 0, 'Gender': 1, 'Age': 2, 'Sales': 3, 'BMI': 4, 'Salary': 5, 'DOB': 6}
 
     def inject_controller(self, ctrl):
         self.__controller = ctrl
@@ -37,7 +35,7 @@ class View(cmd.Cmd):
     def do_chart(self, args):
         """
         Begins the process for charting data from the database
-        :param args: Bar  or Pie
+        :param args: Bar or Pie
         """
         chart = ''
         if str.lower(args) == 'bar':
@@ -66,25 +64,17 @@ class View(cmd.Cmd):
         self.output("6: Salary by BMI")
         decision = self.get_input("Select an option: ")
         if decision == '1':
-            self.__controller.chart_pie('Gender', data=self.__reverse_line['Gender'])
+            self.__controller.chart_pie('Gender', 'Gender')
         elif decision == '2':
-            self.__controller.chart_pie('BMI', data=self.__reverse_line['BMI'])
+            self.__controller.chart_pie('BMI', 'BMI')
         elif decision == '3':
-            self.__controller.chart_pie('Sales by Gender',
-                                        data=self.__reverse_line['Sales'],
-                                        labels=self.__reverse_line['Gender'])
+            self.__controller.chart_pie('Sales by Gender', 'Sales', 'Gender')
         elif decision == '4':
-            self.__controller.chart_pie('Salary by Gender',
-                                        data=self.__reverse_line['Salary'],
-                                        labels=self.__reverse_line['Gender'])
+            self.__controller.chart_pie('Salary by Gender', 'Salary', 'Gender')
         elif decision == '5':
-            self.__controller.chart_pie('Sales by BMI',
-                                        data=self.__reverse_line['Sales'],
-                                        labels=self.__reverse_line['BMI'])
+            self.__controller.chart_pie('Sales by BMI', 'Sales', 'BMI')
         elif decision == '6':
-            self.__controller.chart_pie('Salary by BMI',
-                                        data=self.__reverse_line['Salary'],
-                                        labels=self.__reverse_line['BMI'])
+            self.__controller.chart_pie('Salary by BMI', 'Salary', 'BMI')
         else:
             self.output("Invalid option")
 
@@ -93,7 +83,7 @@ class View(cmd.Cmd):
         self.output("1: Top 10 Sales")
         decision = self.get_input("Select an option: ")
         if decision == '1':
-            self.__controller.chart_bar('Top 10 Sales', 0,)
+            self.__controller.chart_bar('Top 10 Sales', 'EmpID', 'Sales', 10)
         else:
             self.output("Invalid option")
 
@@ -103,22 +93,6 @@ class View(cmd.Cmd):
         Will not save duplicate employee id lines
         """
         self.__controller.save_to_database(args)
-
-    def do_from_db(self, args):
-        """
-        Get employee information from the database
-        Will prompt for fields to return
-        """
-        self.output("Indicate all fields to return")
-        self.output("A = All, " + self.__line)
-        self.output("input as 'A' or '0,1,2,3'")
-        the_input = self.get_input(">")
-        verify = self.__verify_db_input(the_input)
-
-        if verify is ValueError or None:
-            self.output("Invalid input")
-        else:
-            self.__controller.get_from_database(verify.split(','))
 
     @staticmethod
     def output(message):
@@ -137,7 +111,7 @@ class View(cmd.Cmd):
     def do_unpickle(self, args):
         """
         Returns the pickled data from file
-        Options [overwrite : append] overwrite is default
+        Option path: no path will use the default file
         """
         self.__controller.unpickle(args.split())
 
@@ -161,7 +135,7 @@ class View(cmd.Cmd):
         if str.capitalize(the_input) == 'A':
             # all
             return '0,1,2,3,4,5,6'
-        else: # verify that all the numbers are numbers and in the valid range
+        else:  # verify that all the numbers are numbers and in the valid range
             list_input = the_input.split(',')
 
             if list_input is []:
@@ -180,10 +154,3 @@ class View(cmd.Cmd):
                 return None
 
             return ','.join(list(map(str, int_list)))
-
-    @staticmethod
-    def __verify_number_input(from_user, expected):
-        if from_user in expected:
-            return True
-        else:
-            return False

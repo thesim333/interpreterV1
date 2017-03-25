@@ -33,5 +33,5 @@ class FileReader(FileBase):
         :param line: the row
         :return: list of parts
         """
-        parts = re.split("[\s,;/]+", line)
+        parts = re.split("[\s,;]+", line.strip())
         return parts

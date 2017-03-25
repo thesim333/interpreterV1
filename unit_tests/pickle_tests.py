@@ -25,5 +25,6 @@ class PickleTests(unittest.TestCase):
 
     def test_failed_unpickle(self):
         bad_file = "y"
-        x = Serial.unpickle_this(bad_file)
-        self.assertEqual(x, "Could not open {}".format(bad_file))
+        actual = Serial.unpickle_this(bad_file)
+        self.assertRaises(FileNotFoundError)
+

@@ -1,19 +1,18 @@
 # Created by Simon Winder
 
 from abc import ABCMeta
-from abc import abstractmethod
+from abc import abstractstaticmethod
 
 
 class CreatorBase(metaclass=ABCMeta):
-
-    @abstractmethod
-    def create_select(self, args):
+    @abstractstaticmethod
+    def get_pie_data_sum(self, data, labels):
         pass
 
-    @abstractmethod
-    def get_insert(self, line):
+    @abstractstaticmethod
+    def get_pie_data_count(self, data):
         pass
 
-    @abstractmethod
-    def get_emp_id_test(self, emp_id):
+    @abstractstaticmethod
+    def get_bar_data(self, x, y, top):
         pass

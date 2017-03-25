@@ -10,11 +10,12 @@
 'Age must be 2 numbers'
 
 >>> from src.validator.dob import DOB
->>> a = DOB('01-01-1982'); a.validate(); a.check_age_against_date('34')
+>>> a = DOB('09-08-1982'); a.validate()
+'Valid'
+>>> a.check_age_against_date(34)
 'Valid'
 
 >>> from src.validator.bmi import BMI
-
 >>> a = BMI("Normal"); a.validate()
 'Valid'
 

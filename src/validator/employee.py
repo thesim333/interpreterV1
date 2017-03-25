@@ -16,20 +16,18 @@ class Employee(EmployeeBase):
     Holds all the fields of employee data
     Checks if the whole line is valid
     """
-    __fields = []
-    __class_fields = [EmpID, Gender, Age, Sales, BMI, Salary, DOB]
-    __invalid_flags = []
     __FIELDS_TOTAL = 7
     __NOT_CORRECT_NUMBER = 'Not correct number of fields'
     __INDEX = {'EmpID': 0, 'Gender': 1, 'Age': 2, 'Sales': 3, 'BMI': 4, 'Salary': 5, 'DOB': 6}
 
     def add_list(self, employee_list):
         if len(employee_list) != self.__FIELDS_TOTAL:
-            return self.__NOT_CORRECT_NUMBER
+            print(len(employee_list))
+            return {'tags': [self.__NOT_CORRECT_NUMBER]}
 
         validity = self.__validate(employee_list)
 
-        if validity['validity'] is True:
+        if 'fields' in validity:
             return self.__fix_fields(validity)
         else:
             return validity
@@ -74,6 +72,6 @@ class Employee(EmployeeBase):
 
         # if tags is []:
         if is_valid is True:
-            return {'validity': True, 'fields': my_fields}
+            return {'fields': my_fields}
         else:
-            return {'validity': False, 'tags': tags}
+            return {'tags': tags}

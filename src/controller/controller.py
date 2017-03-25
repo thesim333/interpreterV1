@@ -2,33 +2,36 @@
 
 import json
 from src.text_file_reader.file_reader import FileReader
-from src.database.myslq_database import DatabaseMySQL
+from src.database.myslq_database import DatabaseView
 from src.graph.graph import Graph
 from src.serial.serial import Serial
 from src.validator.employee import Employee
 from src.database.query_creator import QueryCreator
 from src.logger.logger import Logger
-from src.validator.validate_field import ValidateField
+from .controller_base import ControllerBase
 
 
-class Controller:
+class Controller(ControllerBase):
     __view = None
     __file_view = None
     __database_view = None
     __graph_view = None
-    __current_list = None
+    __current_list = []
     __serial_file = None
     __query_creator = None
+    __EMPID = 0
 
     def __init__(self, view):
         self.__view = view
         self.__file_view = FileReader()
-        self.__database_view = DatabaseMySQL()
+        self.__database_view = DatabaseView()
         self.__graph_view = Graph()
         self.__query_creator = QueryCreator()
         self.__logger = Logger()
         with open('src\config.json') as json_data_file:
-            self.__serial_file = json.load(json_data_file)['pickle']['file']
+            data = json.load(json_data_file)
+            self.__serial_file = data['pickle']['file']
+            self.__database_name = data['mysql']['db']
 
     def load_file(self, path):
         data = self.__file_view.get_file_data(path)
@@ -43,9 +46,11 @@ class Controller:
         self.__current_list = []
         for i, x in enumerate(content):
             result = employee.add_list(x)
-            if result is ValidateField.VALID:
-                self.__view.output("{} {}".format(i, result))
-
+            if 'fields' in result:
+                self.__current_list.append(result['fields'])
+            else:
+                x = result['tags']
+                self.__view.output('{} {}'.format(i, ' '.join(x)))
 
     def __to_lists(self, list_of_employees):
         self.__current_list = []
@@ -53,11 +58,14 @@ class Controller:
             self.__current_list.append(emp.to_list())
 
     def pickle(self, args):
-        if len(args) > 0:
-            self.__view.output("Pickle accepts no parameters")
-        elif self.__current_list is []:
+        if len(args) > 1:
+            self.__view.output("Too many parameters")
+        elif len(self.__current_list) == 0:
             self.__view.output("No data to pickle")
+        elif len(args) == 1:
+            Serial.pickle_this(args[0], self.__current_list)
         else:
+            print('x')
             Serial.pickle_this(self.__serial_file, self.__current_list)
             self.__current_list = []
 
@@ -67,34 +75,22 @@ class Controller:
         Places this in __current_list
         :args: overwrite or append
         """
-        overwrite = 'overwrite'
-        append = 'append'
-        option = overwrite
-
         if len(args) > 1:
             self.__view.output('Unpickle accepts one argument [overwrite or append]')
             return
-        elif len(args) == 1 and str.lower(args[0]) == overwrite:
-            option = overwrite
-        elif len(args) == 1 and str.lower(args[0]) == append:
-            option = append
-
-        from_pickle = Serial.unpickle_this(self.__serial_file)
-
-        if from_pickle == FileNotFoundError:
-            self.__view.output(from_pickle)
-        elif option == overwrite:
-            self.__current_list = from_pickle
+        elif len(args) == 1:
+            self.__current_list = Serial.unpickle_this(args[0])
         else:
-            self.__current_list.extend(from_pickle)
+            self.__current_list = Serial.unpickle_this(self.__serial_file)
 
     def display(self, args):
-        print(self.__current_list)
         if len(args) > 0:
             self.__view.output('display accepts no parameters')
-        else:
+        elif len(self.__current_list) > 0:
             for row in self.__current_list:
-                self.__view.output(', '.join(row.to_list()))
+                self.__view.output(row)
+        else:
+            self.__view.output('No data to display')
 
     def save_to_database(self, args):
         if len(args) > 0:
@@ -102,29 +98,14 @@ class Controller:
         elif self.__current_list is []:
             self.__view.output('No data to save')
         else:
-            self.__iterate_data()
+            self.__database_view.save_data_to_new(self.__database_name, self.__current_list)
 
-    def __iterate_data(self):
-        for line in self.__current_list:
-            # if the field doesn't exist insert
-            if self.__database_view.select(self.__query_creator.get_emp_id_test(line[Employee.EMP_ID])) is None:
-                self.__database_view.query(self.__query_creator.get_insert(line))
-            else:
-                self.__view.output("Line {} already exists in database".format(line[Employee.EMP_ID]))
-
-    def get_from_database_for_view(self, args):
-        data = self.__database_view.select(self.__query_creator.create_select(args))
-
-        for i in data:
-            self.__view.output(' '.join(i))
-
-    def chart_pie(self, title, **kwargs):
+    def chart_pie(self, title, data, label=None):
         sql = ''
-        if 'label' in kwargs:
-            sql = self.__query_creator.get_pie_data_sum(kwargs['data'], kwargs['labels'])
+        if label is not None:
+            sql = self.__query_creator.get_pie_data_sum(data, label)
         else:
-            sql = self.__query_creator.get_pie_data_count(kwargs['data'])
-
+            sql = self.__query_creator.get_pie_data_count(data)
         new_list = self.__get_chart_data(sql)
         data_x = 1  # list numbers
         label_x = 0
@@ -135,15 +116,15 @@ class Controller:
         new_list = self.__get_chart_data(sql)
         x_pos = 0
         y_pos = 1
-        self.__graph_view.plot_bar(title, self.__query_creator.LINE[x],
-                                   self.__query_creator.LINE[y], new_list[x_pos], new_list[y_pos])
+        self.__graph_view.plot_bar(title, x, y, new_list[x_pos], new_list[y_pos])
 
     def __get_chart_data(self, sql):
-        from_db = self.__database_view.select(sql)
+        from_db = self.__database_view.get_input(self.__database_name, sql)
         return self.__fix_list(from_db)
 
     @staticmethod
     def __fix_list(from_db):
+        print(from_db)
         new_list = [[], []]
 
         for i in from_db:
