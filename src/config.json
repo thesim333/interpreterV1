@@ -1,11 +1,14 @@
 {
   "mysql":{
-    "host":"sql12.freemysqlhosting.net",
-    "user":"sql12163540",
-    "passwd":"LGj2eUHwim",
-    "db":"sql12163540"
+    "host":"localhost",
+    "user":"root",
+    "passwd":"",
+    "db":"employee"
   },
   "pickle":{
     "file":"my_pickle.txt"
+  },
+  "log":{
+    "file":"issues.log"
   }
 }

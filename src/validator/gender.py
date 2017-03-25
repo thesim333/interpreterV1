@@ -17,3 +17,6 @@ class Gender(ValidateField):
             return self.VALID
         else:
             return 'Not M or F'
+
+    def get_field(self):
+        return self._field

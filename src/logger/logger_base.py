@@ -4,7 +4,7 @@ from abc import ABCMeta
 from abc import abstractmethod
 
 
-class EmployeeBase(metaclass=ABCMeta):
+class Logger_Base(metaclass=ABCMeta):
     @abstractmethod
-    def add_list(self, employee_list):
+    def log_this(self, line, message):
         pass

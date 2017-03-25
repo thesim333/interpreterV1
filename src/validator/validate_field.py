@@ -17,5 +17,9 @@ class ValidateField(metaclass=ABCMeta):
     def validate(self):
         pass
 
+    @abstractmethod
     def get_field(self):
-        return self._field
+        pass
+
+    def get_valid(self):
+        return self.VALID

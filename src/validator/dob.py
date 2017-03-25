@@ -20,23 +20,23 @@ class DOB(ValidateField, AgeValidate):
         Checks if the date is of the required format
         :return: Valid or reason the date is not valid
         """
-        if re.match('^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$', self._field) is None:
+        date_fields = re.split('[/-]', self._field)
+
+        if len(date_fields) != 3:
             return 'DOB is not correct format'
 
-        self.__check_date()
+        self.__check_date(date_fields)
 
         if self.__correctDate is True:
             return self.VALID
         else:
             return 'DOB is not a legal date'
 
-    def __check_date(self):
+    def __check_date(self, date_fields):
         """
         Checks if the date is a correct date
         Saves the result to __correctDate
         """
-        date_fields = self._field.split('-')
-
         try:
             self.__date = date(int(date_fields[2]), int(date_fields[1]), int(date_fields[0]))
             self.__correctDate = True
@@ -50,14 +50,14 @@ class DOB(ValidateField, AgeValidate):
         :return: Valid or not
         """
         today = date.today()
-        date_fields = self._field.split('-')
-        self.__date = date(int(date_fields[2]), int(date_fields[1]), int(date_fields[0]))
         rd = relativedelta(today, self.__date)
-        if rd.years == int(age):
+        if rd.years == age:
             return self.VALID
         else:
-            'Age does not match DOB'
+            return 'Age does not match DOB'
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod(extraglobs={'t': DOB('12-12-1982')})
+    def get_db_friendly(self):
+        return self.__date.strftime('%Y-%m-%d')
+
+    def get_field(self):
+        return self.get_db_friendly()

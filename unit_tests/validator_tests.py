@@ -8,6 +8,7 @@ from src.validator.bmi import BMI
 from src.validator.sales import Sales
 from src.validator.salary import Salary
 from src.validator.dob import DOB
+from src.validator.employee import Employee
 
 
 class ValidatorUnitTests(unittest.TestCase):
@@ -42,7 +43,7 @@ class ValidatorUnitTests(unittest.TestCase):
         self.valid_salary2 = "123"
         self.valid_birthday = "09-08-1982"
         self.bad_birthday1 = "31-02-1992"
-        self.bad_birthday2 = "31/01/1992"
+        self.bad_birthday2 = "31/02/1992"
         self.bad_birthday3 = "xx-xx-xxxx"
 
         self.valid = "Valid"
@@ -179,10 +180,24 @@ class ValidatorUnitTests(unittest.TestCase):
         dob = DOB(self.valid_birthday)
         age = Age(self.valid_age1)
         dob.validate()
-        self.assertEqual(dob.check_age_against_date(age.get_field()), self.valid)
+        age.validate()
+        actual = dob.check_age_against_date(age.get_field())
+        expected = self.valid
+        self.assertEqual(actual, expected)
 
     def test_invalid_age_dob(self):
         dob = DOB(self.valid_birthday)
         age = Age(self.valid_age2)
+        age.validate()
         dob.validate()
-        self.assertNotEqual(dob.check_age_against_date(age.get_field()), self.valid)
+        actual = dob.check_age_against_date(age.get_field())
+        expected = self.valid
+        self.assertNotEqual(actual, expected)
+
+# emp, gender, age, sales, bmi, salary, dob
+    def test_valid_employee(self):
+        employee = Employee()
+        actual = employee.add_list([self.valid_emp, self.valid_gender1, self.valid_age1,
+                                    self.valid_sales, self.valid_bmi1, self.valid_salary1, self.valid_birthday])
+        expected = {'validity': True, 'fields': ['X234', 'M', 34, 555, 'Normal', 99, '1982-08-09']}
+        self.assertEqual(actual, expected)

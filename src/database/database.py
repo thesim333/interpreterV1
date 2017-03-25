@@ -23,9 +23,9 @@ class Database(metaclass=ABCMeta):
     def __load_config(self):
         with open('src\config.json') as json_data_file:
             data = json.load(json_data_file)['mysql']
-            self._host = data['host']
-            self._user = data['user']
-            self._password = data['passwd']
+            # self._host = data['host']
+            # self._user = data['user']
+            # self._password = data['passwd']
             self._database = data['db']
 
     @abstractmethod
