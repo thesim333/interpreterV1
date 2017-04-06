@@ -34,12 +34,16 @@ class Controller(ControllerBase):
             self.__database_name = data['mysql']['db']
 
     def load_file(self, path):
+        """
+        Reads a text file into __current_list
+        :param path: the path of the file
+        """
         data = self.__file_view.get_file_data(path)
 
-        if data == FileNotFoundError:
-            self.__view.output(data)
-        else:
+        if data is not None:
             self.__validate_contents(data)
+        else:
+            self.__view.output(data)
 
     def __validate_contents(self, content):
         employee = Employee()
@@ -58,16 +62,18 @@ class Controller(ControllerBase):
             self.__current_list.append(emp.to_list())
 
     def pickle(self, args):
+        """
+        Pickles all the data currently loaded
+        :param args: optional file name
+        """
         if len(args) > 1:
             self.__view.output("Too many parameters")
         elif len(self.__current_list) == 0:
             self.__view.output("No data to pickle")
         elif len(args) == 1:
-            Serial.pickle_this(args[0], self.__current_list)
+            self.__view.output(Serial.pickle_this(args[0], self.__current_list))
         else:
-            print('x')
-            Serial.pickle_this(self.__serial_file, self.__current_list)
-            self.__current_list = []
+            self.__view.output(Serial.pickle_this(self.__serial_file, self.__current_list))
 
     def unpickle(self, args):
         """
@@ -75,13 +81,17 @@ class Controller(ControllerBase):
         Places this in __current_list
         :args: overwrite or append
         """
+        result = None
         if len(args) > 1:
             self.__view.output('Unpickle accepts one argument [overwrite or append]')
             return
         elif len(args) == 1:
-            self.__current_list = Serial.unpickle_this(args[0])
+            result = Serial.unpickle_this(args[0])
         else:
-            self.__current_list = Serial.unpickle_this(self.__serial_file)
+            result = Serial.unpickle_this(self.__serial_file)
+
+        if result is not None:
+            self.__current_list = result
 
     def display(self, args):
         if len(args) > 0:

@@ -16,8 +16,8 @@ class PickleTests(unittest.TestCase):
         self.the_list = [a, b]
 
     def test_pickle(self):
-        x = Serial.pickle_this(self.file_name, self.the_list)
-        self.assertEqual(x, None)
+        actual = Serial.pickle_this(self.file_name, self.the_list)
+        self.assertEqual(actual, 'All data pickled')
 
     def test_unpickle(self):
         x = Serial.unpickle_this(self.file_name)
@@ -26,5 +26,5 @@ class PickleTests(unittest.TestCase):
     def test_failed_unpickle(self):
         bad_file = "y"
         actual = Serial.unpickle_this(bad_file)
-        self.assertRaises(FileNotFoundError)
+        self.assertEqual(None, actual)
 

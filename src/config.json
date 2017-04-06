@@ -1,8 +1,5 @@
 {
   "mysql":{
-    "host":"localhost",
-    "user":"root",
-    "passwd":"",
     "db":"employee.db"
   },
   "pickle":{

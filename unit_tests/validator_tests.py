@@ -199,5 +199,5 @@ class ValidatorUnitTests(unittest.TestCase):
         employee = Employee()
         actual = employee.add_list([self.valid_emp, self.valid_gender1, self.valid_age1,
                                     self.valid_sales, self.valid_bmi1, self.valid_salary1, self.valid_birthday])
-        expected = {'validity': True, 'fields': ['X234', 'M', 34, 555, 'Normal', 99, '1982-08-09']}
+        expected = {'fields': ['X234', 'M', 34, 555, 'Normal', 99, '1982-08-09']}
         self.assertEqual(actual, expected)

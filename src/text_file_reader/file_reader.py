@@ -24,7 +24,8 @@ class FileReader(FileBase):
 
             return file_list
         except FileNotFoundError as e:
-            return e
+            print(e)
+            return None
 
     @staticmethod
     def __into_parts(line):

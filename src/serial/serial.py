@@ -20,8 +20,10 @@ class Serial(SerialBase):
             file_object = open(file, 'wb')
             pickle.dump(content, file_object)
             file_object.close()
+            return 'All data pickled'
         except IOError:
             return 'Could not write to file {}'.format(file)
+
 
     @classmethod
     def unpickle_this(cls, file):
@@ -34,6 +36,8 @@ class Serial(SerialBase):
             file_object = open(file, 'rb')
             content = pickle.load(file_object)
             file_object.close()
+            print('Data unpickled')
             return content
         except FileNotFoundError as e:
-            return e
+            print(e)
+            return None
