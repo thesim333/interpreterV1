@@ -105,13 +105,16 @@ class View(cmd.Cmd, ViewBase):
     def do_pickle(self, args):
         """
         Pickles the currently loaded data to disk
+        
+        pickle [file] or default
         """
         self.__controller.pickle(args.split())
 
     def do_unpickle(self, args):
         """
         Returns the pickled data from file
-        Option path: no path will use the default file
+        
+        unpickle [file] or default
         """
         self.__controller.unpickle(args.split())
 
