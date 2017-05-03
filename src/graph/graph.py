@@ -30,6 +30,7 @@ class Graph(GraphBase):
         ax.tick_params(axis='y', colors='blue')
         info.plot(kind='bar', color=self.__my_colors)
         plt.show()
+        return True
 
     def plot_pie(self, title, items, data):
         """
@@ -45,3 +46,4 @@ class Graph(GraphBase):
         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
         plt.title(title)
         plt.show()
+        return True

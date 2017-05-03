@@ -10,4 +10,4 @@ class FileBase(metaclass=ABCMeta):
     """
     @abstractmethod
     def get_file_data(self, file_path):
-        pass
+        """Not Implemented"""

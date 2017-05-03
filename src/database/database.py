@@ -27,16 +27,16 @@ class Database(metaclass=ABCMeta):
 
     @abstractmethod
     def _open(self):
-        pass
+        """Not Implemented"""
 
     @abstractmethod
     def _close(self):
-        pass
+        """Not Implemented"""
 
     @abstractmethod
     def query(self, sql):
-        pass
+        """Not Implemented"""
 
     @abstractmethod
     def select(self, sql):
-        pass
+        """Not Implemented"""

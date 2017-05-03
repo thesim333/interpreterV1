@@ -119,14 +119,14 @@ class Controller(ControllerBase):
         new_list = self.__get_chart_data(sql)
         data_x = 1  # list numbers
         label_x = 0
-        self.__graph_view.plot_pie(title, new_list[label_x], new_list[data_x])
+        return self.__graph_view.plot_pie(title, new_list[label_x], new_list[data_x])
 
     def chart_bar(self, title, x, y, top):
         sql = self.__query_creator.get_bar_data(x, y, top)
         new_list = self.__get_chart_data(sql)
         x_pos = 0
         y_pos = 1
-        self.__graph_view.plot_bar(title, x, y, new_list[x_pos], new_list[y_pos])
+        return self.__graph_view.plot_bar(title, x, y, new_list[x_pos], new_list[y_pos])
 
     def __get_chart_data(self, sql):
         from_db = self.__database_view.get_input(self.__database_name, sql)

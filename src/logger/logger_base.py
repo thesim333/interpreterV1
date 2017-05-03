@@ -7,4 +7,4 @@ from abc import abstractmethod
 class Logger_Base(metaclass=ABCMeta):
     @abstractmethod
     def log_this(self, line, message):
-        pass
+        """Not Implemented"""

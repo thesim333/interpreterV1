@@ -10,8 +10,8 @@ class SerialBase(metaclass=ABCMeta):
     """
     @abstractclassmethod
     def pickle_this(self, file, content):
-        pass
+        """Not Implemented"""
 
     @abstractclassmethod
     def unpickle_this(self, file):
-        pass
+        """Not Implemented"""

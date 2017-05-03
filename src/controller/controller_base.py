@@ -7,28 +7,28 @@ from abc import abstractmethod
 class ControllerBase(metaclass=ABCMeta):
     @abstractmethod
     def load_file(self, path):
-        pass
+        """Not Implemented"""
 
     @abstractmethod
     def pickle(self, args):
-        pass
+        """Not Implemented"""
 
     @abstractmethod
     def unpickle(self, args):
-        pass
+        """Not Implemented"""
 
     @abstractmethod
     def display(self, args):
-        pass
+        """Not Implemented"""
 
     @abstractmethod
     def save_to_database(self, args):
-        pass
+        """Not Implemented"""
 
     @abstractmethod
     def chart_pie(self, title, data, label=None):
-        pass
+        """Not Implemented"""
 
     @abstractmethod
     def chart_bar(self, title, x, y, top):
-        pass
+        """Not Implemented"""

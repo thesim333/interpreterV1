@@ -8,12 +8,12 @@ from abc import abstractstaticmethod
 class ViewBase(metaclass=ABCMeta):
     @abstractmethod
     def inject_controller(self, ctrl):
-        pass
+        """Not Implemented"""
 
     @abstractstaticmethod
     def output(message):
-        pass
+        """Not Implemented"""
 
     @abstractstaticmethod
     def get_input(message):
-        pass
+        """Not Implemented"""
