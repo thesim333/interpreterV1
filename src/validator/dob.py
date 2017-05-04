@@ -56,8 +56,5 @@ class DOB(ValidateField, AgeValidate):
         else:
             return 'Age does not match DOB'
 
-    def get_db_friendly(self):
-        return self.__date.strftime('%Y-%m-%d')
-
     def get_field(self):
-        return self.get_db_friendly()
+        return self.__date.strftime('%Y-%m-%d')
