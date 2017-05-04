@@ -7,7 +7,6 @@ from src.graph.graph import Graph
 from src.serial.serial import Serial
 from src.validator.employee import Employee
 from src.database.query_creator import QueryCreator
-from src.logger.logger import Logger
 from .controller_base import ControllerBase
 
 
@@ -27,7 +26,6 @@ class Controller(ControllerBase):
         self.__database_view = DatabaseView()
         self.__graph_view = Graph()
         self.__query_creator = QueryCreator()
-        self.__logger = Logger()
         with open('src\config.json') as json_data_file:
             data = json.load(json_data_file)
             self.__serial_file = data['pickle']['file']
