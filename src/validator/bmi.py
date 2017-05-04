@@ -17,6 +17,3 @@ class BMI(ValidateField):
             return self.VALID
         else:
             return 'BMI not a valid option'
-
-    def get_field(self):
-        return self._field

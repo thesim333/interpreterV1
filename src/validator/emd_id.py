@@ -17,6 +17,3 @@ class EmpID(ValidateField):
             return self.VALID
         else:
             return 'Employee ID must be of format "X000"'
-
-    def get_field(self):
-        return self._field
