@@ -17,9 +17,8 @@ class ValidateField(metaclass=ABCMeta):
     def validate(self):
         """Not Implemented"""
 
-    @abstractmethod
     def get_field(self):
-        """Not Implemented"""
+        return self._field
 
     def get_valid(self):
         return self.VALID
