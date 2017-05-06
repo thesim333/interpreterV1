@@ -1,0 +1,410 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Coverage report</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.ba-throttle-debounce.min.js"></script>
+    <script type="text/javascript" src="jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="coverage_html.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(coverage.index_ready);
+    </script>
+</head>
+<body class="indexfile">
+
+<div id="header">
+    <div class="content">
+        <h1>Coverage report:
+            <span class="pc_cov">76%</span>
+        </h1>
+
+        <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
+
+        <form id="filter_container">
+            <input id="filter" type="text" value="" placeholder="filter..." />
+        </form>
+    </div>
+</div>
+
+<div class="help_panel">
+    <img id="panel_icon" src="keybd_open.png" alt="Hide keyboard shortcuts" />
+    <p class="legend">Hot-keys on this page</p>
+    <div>
+    <p class="keyhelp">
+        <span class="key">n</span>
+        <span class="key">s</span>
+        <span class="key">m</span>
+        <span class="key">x</span>
+        
+        <span class="key">c</span> &nbsp; change column sorting
+    </p>
+    </div>
+</div>
+
+<div id="index">
+    <table class="index">
+        <thead>
+            
+            <tr class="tablehead" title="Click to sort">
+                <th class="name left headerSortDown shortkey_n">Module</th>
+                <th class="shortkey_s">statements</th>
+                <th class="shortkey_m">missing</th>
+                <th class="shortkey_x">excluded</th>
+                
+                <th class="right shortkey_c">coverage</th>
+            </tr>
+        </thead>
+        
+        <tfoot>
+            <tr class="total">
+                <td class="name left">Total</td>
+                <td>660</td>
+                <td>159</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="501 660">76%</td>
+            </tr>
+        </tfoot>
+        <tbody>
+            
+            <tr class="file">
+                <td class="name left"><a href="assignment2tests_py.html">assignment2tests.py</a></td>
+                <td>140</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="140 140">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src___init___py.html">src\__init__.py</a></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="0 0">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_controller___init___py.html">src\controller\__init__.py</a></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="0 0">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_controller_controller_py.html">src\controller\controller.py</a></td>
+                <td>90</td>
+                <td>42</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="48 90">53%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_controller_controller_base_py.html">src\controller\controller_base.py</a></td>
+                <td>11</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="11 11">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_controller_view_py.html">src\controller\view.py</a></td>
+                <td>84</td>
+                <td>65</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="19 84">23%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_controller_view_base_py.html">src\controller\view_base.py</a></td>
+                <td>7</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="7 7">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_database___init___py.html">src\database\__init__.py</a></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="0 0">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_database_creator_base_py.html">src\database\creator_base.py</a></td>
+                <td>6</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="6 6">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_database_data_view_py.html">src\database\data_view.py</a></td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="4 4">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_database_myslq_database_py.html">src\database\myslq_database.py</a></td>
+                <td>49</td>
+                <td>24</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="25 49">51%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_database_query_creator_py.html">src\database\query_creator.py</a></td>
+                <td>16</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="16 16">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_graph___init___py.html">src\graph\__init__.py</a></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="0 0">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_graph_data_fixer_py.html">src\graph\data_fixer.py</a></td>
+                <td>8</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="8 8">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_graph_data_fixer_abc_py.html">src\graph\data_fixer_abc.py</a></td>
+                <td>12</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="12 12">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_graph_graph_py.html">src\graph\graph.py</a></td>
+                <td>25</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="25 25">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_graph_graph_base_py.html">src\graph\graph_base.py</a></td>
+                <td>5</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="5 5">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_serial___init___py.html">src\serial\__init__.py</a></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="0 0">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_serial_serial_py.html">src\serial\serial.py</a></td>
+                <td>21</td>
+                <td>16</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="5 21">24%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_serial_serial_base_py.html">src\serial\serial_base.py</a></td>
+                <td>5</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="5 5">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_text_file_reader___init___py.html">src\text_file_reader\__init__.py</a></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="0 0">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_text_file_reader_file_base_py.html">src\text_file_reader\file_base.py</a></td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="4 4">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_text_file_reader_file_reader_py.html">src\text_file_reader\file_reader.py</a></td>
+                <td>17</td>
+                <td>12</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="5 17">29%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator___init___py.html">src\validator\__init__.py</a></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="0 0">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_age_py.html">src\validator\age.py</a></td>
+                <td>13</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="13 13">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_age_validate_py.html">src\validator\age_validate.py</a></td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="4 4">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_bmi_py.html">src\validator\bmi.py</a></td>
+                <td>7</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="7 7">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_dob_py.html">src\validator\dob.py</a></td>
+                <td>30</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="30 30">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_emd_id_py.html">src\validator\emd_id.py</a></td>
+                <td>7</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="7 7">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_employee_py.html">src\validator\employee.py</a></td>
+                <td>51</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="51 51">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_employee_base_py.html">src\validator\employee_base.py</a></td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="4 4">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_gender_py.html">src\validator\gender.py</a></td>
+                <td>7</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="7 7">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_salary_py.html">src\validator\salary.py</a></td>
+                <td>11</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="11 11">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_sales_py.html">src\validator\sales.py</a></td>
+                <td>11</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="11 11">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="src_validator_validate_field_py.html">src\validator\validate_field.py</a></td>
+                <td>11</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="11 11">100%</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <p id="no_rows">
+        No items found using the specified filter.
+    </p>
+</div>
+
+<div id="footer">
+    <div class="content">
+        <p>
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.3.4</a>,
+            created at 2017-05-06 22:34
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

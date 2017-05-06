@@ -8,6 +8,7 @@ from src.serial.serial import Serial
 from src.validator.employee import Employee
 from src.database.query_creator import QueryCreator
 from .controller_base import ControllerBase
+from src.graph.data_fixer import DataFixer
 
 
 class Controller(ControllerBase):
@@ -114,29 +115,16 @@ class Controller(ControllerBase):
             sql = self.__query_creator.get_pie_data_sum(data, label)
         else:
             sql = self.__query_creator.get_pie_data_count(data)
-        new_list = self.__get_chart_data(sql)
-        data_x = 1  # list numbers
-        label_x = 0
-        return self.__graph_view.plot_pie(title, new_list[label_x], new_list[data_x])
+        to_plot = DataFixer(self.__get_chart_data(sql))
+        return self.__graph_view.plot_pie(title, to_plot.get_new_list_label()
+                                          , to_plot.get_new_list_data())
 
     def chart_bar(self, title, x, y, top):
         sql = self.__query_creator.get_bar_data(x, y, top)
-        new_list = self.__get_chart_data(sql)
-        x_pos = 0
-        y_pos = 1
-        return self.__graph_view.plot_bar(title, x, y, new_list[x_pos], new_list[y_pos])
+        to_plot = DataFixer(self.__get_chart_data(sql))
+        return self.__graph_view.plot_bar(title, x, y,
+                                          to_plot.get_new_list_label(),
+                                          to_plot.get_new_list_data())
 
     def __get_chart_data(self, sql):
-        from_db = self.__database_view.get_input(self.__database_name, sql)
-        return self.__fix_list(from_db)
-
-    @staticmethod
-    def __fix_list(from_db):
-        print(from_db)
-        new_list = [[], []]
-
-        for i in from_db:
-            new_list[0].append(i[0])
-            new_list[1].append(i[1])
-
-        return new_list
+        return self.__database_view.get_input(self.__database_name, sql)

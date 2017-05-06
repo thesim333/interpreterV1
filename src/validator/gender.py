@@ -13,7 +13,7 @@ class Gender(ValidateField):
         Validates if the field is M or F
         :return: Valid or Not M or F
         """
-        if re.match('^(M|F)$', self._field) is not None:
+        if re.match('^([MF])$', self._field) is not None:
             return self.VALID
         else:
             return 'Not M or F'
