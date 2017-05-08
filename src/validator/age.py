@@ -1,15 +1,13 @@
 # Created by Simon Winder
 
-from .validate_field import ValidateField
+from .validate_field_number import ValidateFieldNumber
 import re
 
 
-class Age(ValidateField):
+class Age(ValidateFieldNumber):
     """
     Contains an age field
     """
-    __field_int = 0
-
     def validate(self):
         """
         Verifies the age is of 14 < x < 80
@@ -21,8 +19,5 @@ class Age(ValidateField):
         elif int(self._field) < 15 or int(self._field) > 81:
             return 'Age must be be 14 < 80'
         else:
-            self.__field_int = int(self._field)
+            self._field_number = int(self._field)
             return self.VALID
-
-    def get_field(self):
-        return self.__field_int

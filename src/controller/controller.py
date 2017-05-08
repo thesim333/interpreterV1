@@ -93,6 +93,10 @@ class Controller(ControllerBase):
             self.__current_list = result
 
     def display(self, args):
+        """
+        display the validated data to the screen
+        :param args: user input args
+        """
         if len(args) > 0:
             self.__view.output('display accepts no parameters')
         elif len(self.__current_list) > 0:
@@ -102,6 +106,10 @@ class Controller(ControllerBase):
             self.__view.output('No data to display')
 
     def save_to_database(self, args):
+        """
+        Saves the data validated to the database
+        :param args: User input args
+        """
         if len(args) > 0:
             self.__view.output('display accepts no parameters')
         elif self.__current_list is []:
@@ -110,6 +118,13 @@ class Controller(ControllerBase):
             self.__database_view.save_data_to_new(self.__database_name, self.__current_list)
 
     def chart_pie(self, title, data, label=None):
+        """
+        generates a sql and generates a pie chart with the queried data
+        :param title: The chart title
+        :param data: The data to be plotted
+        :param label: The labels for the chart
+        :return: True if plotted
+        """
         sql = ''
         if label is not None:
             sql = self.__query_creator.get_pie_data_sum(data, label)
@@ -120,6 +135,14 @@ class Controller(ControllerBase):
                                           , to_plot.get_new_list_data())
 
     def chart_bar(self, title, x, y, top):
+        """
+        generates a sql and generates a bar chart with the queried data
+        :param title: The chart title
+        :param x: The data to be on axis x (label)
+        :param y: The data to be on axis y
+        :param top: The amount of results to graph
+        :return: True if plotted
+        """
         sql = self.__query_creator.get_bar_data(x, y, top)
         to_plot = DataFixer(self.__get_chart_data(sql))
         return self.__graph_view.plot_bar(title, x, y,

@@ -5,9 +5,13 @@ from abc import abstractmethod
 
 
 class DataFixerABC(metaclass=ABCMeta):
+    """
+    ABC that holds a list and the new lists from fixing
+    """
     def __init__(self, this_list):
         self._the_old_list = this_list
-        self._the_new_list = [[], []]
+        self._labels = []
+        self._data = []
         self.fix_the_list()
 
     @abstractmethod
@@ -15,7 +19,15 @@ class DataFixerABC(metaclass=ABCMeta):
         """not implemented"""
 
     def get_new_list_label(self):
-        return self._the_new_list[0]
+        """
+        Gets the label part of the graph query
+        :return: list []
+        """
+        return self._labels
 
     def get_new_list_data(self):
-        return self._the_new_list[1]
+        """
+        Gets the data part of the graph query
+        :return: list []
+        """
+        return self._data

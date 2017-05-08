@@ -18,7 +18,15 @@ class ValidateField(metaclass=ABCMeta):
         """Not Implemented"""
 
     def get_field(self):
+        """
+        Gets the field after validation
+        :return: string
+        """
         return self._field
 
     def get_valid(self):
+        """
+        "Valid" for tests of field validity
+        :return: string "Valid"
+        """
         return self.VALID
