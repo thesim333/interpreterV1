@@ -16,9 +16,10 @@ class Employee(EmployeeBase):
     Holds all the fields of employee data
     Checks if the whole line is valid
     """
-    __FIELDS_TOTAL = 7
-    __NOT_CORRECT_NUMBER = 'Not correct number of fields'
-    __INDEX = {'EmpID': 0, 'Gender': 1, 'Age': 2, 'Sales': 3, 'BMI': 4, 'Salary': 5, 'DOB': 6}
+    def __init__(self):
+        self.__FIELDS_TOTAL = 7
+        self.__NOT_CORRECT_NUMBER = 'Not correct number of fields'
+        self.__INDEX = {'EmpID': 0, 'Gender': 1, 'Age': 2, 'Sales': 3, 'BMI': 4, 'Salary': 5, 'DOB': 6}
 
     def add_list(self, employee_list):
         if len(employee_list) != self.__FIELDS_TOTAL:

@@ -8,10 +8,9 @@ class ValidateField(metaclass=ABCMeta):
     """
     Abstract class for fields to be validated
     """
-    VALID = "Valid"
-
     def __init__(self, field):
         self._field = field
+        self._VALID = "Valid"
 
     @abstractmethod
     def validate(self):
@@ -29,4 +28,4 @@ class ValidateField(metaclass=ABCMeta):
         "Valid" for tests of field validity
         :return: string "Valid"
         """
-        return self.VALID
+        return self._VALID

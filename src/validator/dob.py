@@ -52,7 +52,7 @@ class DOB(ValidateField, AgeValidate):
         today = date.today()
         rd = relativedelta(today, self.__date)
         if rd.years == age:
-            return self.VALID
+            return self._VALID
         else:
             return 'Age does not match DOB'
 

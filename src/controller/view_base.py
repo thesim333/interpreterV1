@@ -6,13 +6,10 @@ from abc import abstractstaticmethod
 
 
 class ViewBase(metaclass=ABCMeta):
-    @abstractmethod
-    def inject_controller(self, ctrl):
-        """Not Implemented"""
+    _controller = None
 
-    @abstractstaticmethod
-    def output(message):
-        """Not Implemented"""
+    def inject_controller(self, ctrl):
+        self._controller = ctrl
 
     @abstractstaticmethod
     def get_input(message):

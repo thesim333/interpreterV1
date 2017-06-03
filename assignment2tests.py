@@ -179,5 +179,10 @@ class Assignment2Tests(unittest.TestCase):
         the_list = ["E123", "M", "23", "0", "Normal", "99", self.valid_birthday]
         self.assertEqual(employee.add_list(the_list), {'tags': ['Sales must be 2 or 3 numbers', 'Age does not match DOB']})
 
+    def test_add_data_to_db(self):
+        self.controller.load_file("TestData.txt")
+        self.controller.save_to_database([])
+
+
 if __name__ == '__main__':
     unittest.main()

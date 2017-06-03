@@ -12,25 +12,18 @@ from src.graph.data_fixer import DataFixer
 
 
 class Controller(ControllerBase):
-    __view = None
-    __file_view = None
-    __database_view = None
-    __graph_view = None
-    __current_list = []
-    __serial_file = None
-    __query_creator = None
-    __EMPID = 0
-
     def __init__(self, view):
+        self.__current_list = []
         self.__view = view
         self.__file_view = FileReader()
-        self.__database_view = DatabaseView()
         self.__graph_view = Graph()
         self.__query_creator = QueryCreator()
+        self.__EMPID = 0
         with open('src\config.json') as json_data_file:
             data = json.load(json_data_file)
             self.__serial_file = data['pickle']['file']
             self.__database_name = data['mysql']['db']
+        self.__database_view = DatabaseView(self.__database_name)
 
     def load_file(self, path):
         """
@@ -42,7 +35,7 @@ class Controller(ControllerBase):
         if data is not None:
             self.__validate_contents(data)
         else:
-            self.__view.output(data)
+            print(data)
 
     def __validate_contents(self, content):
         employee = Employee()
@@ -53,7 +46,7 @@ class Controller(ControllerBase):
                 self.__current_list.append(result['fields'])
             else:
                 x = result['tags']
-                self.__view.output('{} {}'.format(i, ' '.join(x)))
+                print('{} {}'.format(i, ' '.join(x)))
 
     def __to_lists(self, list_of_employees):
         self.__current_list = []
@@ -66,13 +59,13 @@ class Controller(ControllerBase):
         :param args: optional file name
         """
         if len(args) > 1:
-            self.__view.output("Too many parameters")
+            print("Too many parameters")
         elif len(self.__current_list) == 0:
-            self.__view.output("No data to pickle")
+            print("No data to pickle")
         elif len(args) == 1:
-            self.__view.output(Serial.pickle_this(args[0], self.__current_list))
+            print(Serial.pickle_this(args[0], self.__current_list))
         else:
-            self.__view.output(Serial.pickle_this(self.__serial_file, self.__current_list))
+            print(Serial.pickle_this(self.__serial_file, self.__current_list))
 
     def unpickle(self, args):
         """
@@ -82,7 +75,7 @@ class Controller(ControllerBase):
         """
         result = None
         if len(args) > 1:
-            self.__view.output('Unpickle accepts one argument [overwrite or append]')
+            print('Unpickle accepts one argument [overwrite or append]')
             return
         elif len(args) == 1:
             result = Serial.unpickle_this(args[0])
@@ -98,12 +91,12 @@ class Controller(ControllerBase):
         :param args: user input args
         """
         if len(args) > 0:
-            self.__view.output('display accepts no parameters')
+            print('display accepts no parameters')
         elif len(self.__current_list) > 0:
             for row in self.__current_list:
-                self.__view.output(row)
+                print(row)
         else:
-            self.__view.output('No data to display')
+            print('No data to display')
 
     def save_to_database(self, args):
         """
@@ -111,11 +104,11 @@ class Controller(ControllerBase):
         :param args: User input args
         """
         if len(args) > 0:
-            self.__view.output('display accepts no parameters')
+            print('display accepts no parameters')
         elif self.__current_list is []:
-            self.__view.output('No data to save')
+            print('No data to save')
         else:
-            self.__database_view.save_data_to_new(self.__database_name, self.__current_list)
+            self.__database_view.save_data_to_new(self.__current_list)
 
     def chart_pie(self, title, data, label=None):
         """
@@ -150,4 +143,4 @@ class Controller(ControllerBase):
                                           to_plot.get_new_list_data())
 
     def __get_chart_data(self, sql):
-        return self.__database_view.get_input(self.__database_name, sql)
+        return self.__database_view.get_input(sql)

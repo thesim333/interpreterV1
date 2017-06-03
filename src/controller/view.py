@@ -6,11 +6,9 @@ from .view_base import ViewBase
 
 
 class View(cmd.Cmd, ViewBase):
-    __controller = None
-    prompt = ">"
-
-    def inject_controller(self, ctrl):
-        self.__controller = ctrl
+    def __init__(self):
+        super().__init__()
+        self.prompt = ">"
 
     def do_quit(self, args):
         """
@@ -28,7 +26,7 @@ class View(cmd.Cmd, ViewBase):
         >load [path]
         """
         if len(args.split()) == 1:
-            self.__controller.load_file(args)
+            self._controller.load_file(args)
         else:
             self.output("Missing file path")
 
@@ -64,17 +62,17 @@ class View(cmd.Cmd, ViewBase):
         self.output("6: Salary by BMI")
         decision = self.get_input("Select an option: ")
         if decision == '1':
-            self.__controller.chart_pie('Gender', 'Gender')
+            self._controller.chart_pie('Gender', 'Gender')
         elif decision == '2':
-            self.__controller.chart_pie('BMI', 'BMI')
+            self._controller.chart_pie('BMI', 'BMI')
         elif decision == '3':
-            self.__controller.chart_pie('Sales by Gender', 'Sales', 'Gender')
+            self._controller.chart_pie('Sales by Gender', 'Sales', 'Gender')
         elif decision == '4':
-            self.__controller.chart_pie('Salary by Gender', 'Salary', 'Gender')
+            self._controller.chart_pie('Salary by Gender', 'Salary', 'Gender')
         elif decision == '5':
-            self.__controller.chart_pie('Sales by BMI', 'Sales', 'BMI')
+            self._controller.chart_pie('Sales by BMI', 'Sales', 'BMI')
         elif decision == '6':
-            self.__controller.chart_pie('Salary by BMI', 'Salary', 'BMI')
+            self._controller.chart_pie('Salary by BMI', 'Salary', 'BMI')
         else:
             self.output("Invalid option")
 
@@ -92,15 +90,7 @@ class View(cmd.Cmd, ViewBase):
         Saves the local data to the database
         Will not save duplicate employee id lines
         """
-        self.__controller.save_to_database(args)
-
-    @staticmethod
-    def output(message):
-        """
-        Outputs to the console
-        :param message: The output
-        """
-        print(message)
+        self._controller.save_to_database(args)
 
     def do_pickle(self, args):
         """
@@ -108,7 +98,7 @@ class View(cmd.Cmd, ViewBase):
         
         pickle [file] or default
         """
-        self.__controller.pickle(args.split())
+        self._controller.pickle(args.split())
 
     def do_unpickle(self, args):
         """
@@ -116,7 +106,7 @@ class View(cmd.Cmd, ViewBase):
         
         unpickle [file] or default
         """
-        self.__controller.unpickle(args.split())
+        self._controller.unpickle(args.split())
 
     @staticmethod
     def get_input(message):
@@ -131,7 +121,7 @@ class View(cmd.Cmd, ViewBase):
         """
         Displays the current data to the console
         """
-        self.__controller.display(args)
+        self._controller.display(args)
 
     @staticmethod
     def __verify_db_input(the_input):

@@ -14,6 +14,6 @@ class BMI(ValidateField):
         :return: Valid or not
         """
         if re.match('^(Normal|Overweight|Obesity|Underweight)$', self._field) is not None:
-            return self.VALID
+            return self._VALID
         else:
             return 'BMI not a valid option'

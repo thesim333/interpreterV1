@@ -3,48 +3,46 @@
 input and output of a SQLite3 database
 """
 
-from .data_view import View
+from .data_view import DatabaseViewBase
 import sqlite3
-import json
 
 
-class DatabaseView(View):
-    _conn = object
+class DatabaseView(DatabaseViewBase):
+    def __init__(self, database):
+        super().__init__(database)
 
-    def get_input(self, database_file_name, sql):
+    def get_input(self, sql):
         """
         Reads the database file and returns it as a list
-        :param database_file_name:
         :param sql:
         :return:
         """
         database_as_list = []
 
-        if not self.open_database(database_file_name):
+        if not self._open_database():
             return
 
         # get all records
         cursor = self._conn.execute(sql)
         # put all the rows into a list
         database_as_list = cursor.fetchall()
-        self.close_database()
+        self._close_database()
         return database_as_list
 
-    def open_database(self, database_file_name):
+    def _open_database(self):
         """
         Opens the database
-        :param database_file_name:
         """
         try:
-            self._conn = sqlite3.connect(database_file_name)
+            self._conn = sqlite3.connect(self._database)
         except Exception as e:
             print(e)
             return False
         else:
-            print(database_file_name, "opened successfully")
+            print(self._database, "opened successfully")
             return True
 
-    def close_database(self):
+    def _close_database(self):
         """
         Closes the database
         """
@@ -55,21 +53,20 @@ class DatabaseView(View):
         else:
             print("Closing database")
 
-    def save_data_to_new(self, file_name, data_list):
+    def save_data_to_new(self, data_list):
         """
         Saves the data from <data_list> into a new database named <file_name>
-        :param file_name:
         :param data_list:
         """
-        if not self.open_database(file_name):
+        if not self._open_database():
             return
-        self.create_employee_table()
-        self.insert_records(data_list)
+        self._create_employee_table()
+        self._insert_records(data_list)
         # commit the records before closing the database
         self._conn.commit()
-        self.close_database()
+        self._close_database()
 
-    def create_employee_table(self):
+    def _create_employee_table(self):
         """
         Create the employee table in the previously opened database file
         """
@@ -87,7 +84,7 @@ class DatabaseView(View):
         else:
             print("Created table")
 
-    def insert_records(self, data_list):
+    def _insert_records(self, data_list):
         error_value = ''
         for i in data_list:
             try:
