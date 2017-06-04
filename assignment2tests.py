@@ -11,7 +11,6 @@ from src.validator.sales import Sales
 from src.controller.controller import Controller
 from src.controller.view import View
 from src.validator.employee import Employee
-from src.graph.graph import Graph
 
 
 class Assignment2Tests(unittest.TestCase):
@@ -157,12 +156,7 @@ class Assignment2Tests(unittest.TestCase):
         self.assertEqual(self.controller.chart_bar('Top 10 Sales', 'EmpID', 'Sales', 10), True)
 
     def test_controller_chart_pie_other(self):
-        self.assertEqual(self.controller.chart_pie('Sales by Gender', 'Gender'), True)
-
-    def test_chart_bar_problem(self):
-        graph = Graph()
-        self.assertEqual(graph.plot_bar('Top 10 Sales', 'EmpID', 'Sales', ["A123"], []),
-                         "Problem with item count could not create chart")
+        self.assertEqual(self.controller.chart_pie('Staff Gender', 'Gender'), True)
 
     def test_employee_valid_input(self):
         employee = Employee()
@@ -178,11 +172,6 @@ class Assignment2Tests(unittest.TestCase):
         employee = Employee()
         the_list = ["E123", "M", "23", "0", "Normal", "99", self.valid_birthday]
         self.assertEqual(employee.add_list(the_list), {'tags': ['Sales must be 2 or 3 numbers', 'Age does not match DOB']})
-
-    def test_add_data_to_db(self):
-        self.controller.load_file("TestData.txt")
-        self.controller.save_to_database([])
-
 
 if __name__ == '__main__':
     unittest.main()

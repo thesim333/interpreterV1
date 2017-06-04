@@ -28,7 +28,7 @@ class View(cmd.Cmd, ViewBase):
         if len(args.split()) == 1:
             self._controller.load_file(args)
         else:
-            self.output("Missing file path")
+            print("Missing file path")
 
     def do_chart(self, args):
         """
@@ -41,8 +41,8 @@ class View(cmd.Cmd, ViewBase):
         elif str.lower(args) == 'pie':
             chart = '2'
         else:
-            self.output("Type of chart")
-            self.output("1 = Bar, 2 = Pie")
+            print("Type of chart")
+            print("1 = Bar, 2 = Pie")
             chart = self.get_input("Number of option > ")
 
         if chart == '1':
@@ -50,16 +50,16 @@ class View(cmd.Cmd, ViewBase):
         elif chart == '2':
             self.__chart_pie()
         else:
-            self.output("Invalid option")
+            print("Invalid option")
 
     def __chart_pie(self):
-        self.output("Which?:")
-        self.output("1: Gender")
-        self.output("2: BMI")
-        self.output("3: Sales by Gender")
-        self.output("4: Salary by Gender")
-        self.output("5: Sales by BMI")
-        self.output("6: Salary by BMI")
+        print("Which?:")
+        print("1: Gender")
+        print("2: BMI")
+        print("3: Sales by Gender")
+        print("4: Salary by Gender")
+        print("5: Sales by BMI")
+        print("6: Salary by BMI")
         decision = self.get_input("Select an option: ")
         if decision == '1':
             self._controller.chart_pie('Gender', 'Gender')
@@ -74,16 +74,16 @@ class View(cmd.Cmd, ViewBase):
         elif decision == '6':
             self._controller.chart_pie('Salary by BMI', 'Salary', 'BMI')
         else:
-            self.output("Invalid option")
+            print("Invalid option")
 
     def __chart_bar(self):
-        self.output("Which?:")
-        self.output("1: Top 10 Sales")
+        print("Which?:")
+        print("1: Top 10 Sales")
         decision = self.get_input("Select an option: ")
         if decision == '1':
-            self.__controller.chart_bar('Top 10 Sales', 'EmpID', 'Sales', 10)
+            self._controller.chart_bar('Top 10 Sales', 'EmpID', 'Sales', 10)
         else:
-            self.output("Invalid option")
+            print("Invalid option")
 
     def do_save_to_database(self, args):
         """

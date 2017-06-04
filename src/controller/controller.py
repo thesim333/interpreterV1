@@ -3,12 +3,12 @@
 import json
 from src.text_file_reader.file_reader import FileReader
 from src.database.myslq_database import DatabaseView
-from src.graph.graph import Graph
 from src.serial.serial import Serial
 from src.validator.employee import Employee
-from src.database.query_creator import QueryCreator
 from .controller_base import ControllerBase
-from src.graph.data_fixer import DataFixer
+from src.graph.graph_director import GraphDirector
+from src.graph.pie_graph_builder import PieGraphBuilder
+from src.graph.bar_graph_builder import BarGraphBuilder
 
 
 class Controller(ControllerBase):
@@ -16,8 +16,6 @@ class Controller(ControllerBase):
         self.__current_list = []
         self.__view = view
         self.__file_view = FileReader()
-        self.__graph_view = Graph()
-        self.__query_creator = QueryCreator()
         self.__EMPID = 0
         with open('src\config.json') as json_data_file:
             data = json.load(json_data_file)
@@ -111,36 +109,43 @@ class Controller(ControllerBase):
             self.__database_view.save_data_to_new(self.__current_list)
 
     def chart_pie(self, title, data, label=None):
-        """
-        generates a sql and generates a pie chart with the queried data
-        :param title: The chart title
-        :param data: The data to be plotted
-        :param label: The labels for the chart
-        :return: True if plotted
-        """
-        sql = ''
-        if label is not None:
-            sql = self.__query_creator.get_pie_data_sum(data, label)
-        else:
-            sql = self.__query_creator.get_pie_data_count(data)
-        to_plot = DataFixer(self.__get_chart_data(sql))
-        return self.__graph_view.plot_pie(title, to_plot.get_new_list_label()
-                                          , to_plot.get_new_list_data())
+        director = GraphDirector(PieGraphBuilder(self.__database_view, title, data, label))
+        director.make_chart()
+        return True
 
     def chart_bar(self, title, x, y, top):
-        """
-        generates a sql and generates a bar chart with the queried data
-        :param title: The chart title
-        :param x: The data to be on axis x (label)
-        :param y: The data to be on axis y
-        :param top: The amount of results to graph
-        :return: True if plotted
-        """
-        sql = self.__query_creator.get_bar_data(x, y, top)
-        to_plot = DataFixer(self.__get_chart_data(sql))
-        return self.__graph_view.plot_bar(title, x, y,
-                                          to_plot.get_new_list_label(),
-                                          to_plot.get_new_list_data())
+        director = GraphDirector(BarGraphBuilder(self.__database_view, title, x, y, top))
+        director.make_chart()
+        return True
 
-    def __get_chart_data(self, sql):
-        return self.__database_view.get_input(sql)
+    # def chart_pie(self, title, data, label=None):
+    #     """
+    #     generates a sql and generates a pie chart with the queried data
+    #     :param title: The chart title
+    #     :param data: The data to be plotted
+    #     :param label: The labels for the chart
+    #     :return: True if plotted
+    #     """
+    #     sql = ''
+    #     if label is not None:
+    #         sql = self.__query_creator.get_pie_data_sum(data, label)
+    #     else:
+    #         sql = self.__query_creator.get_pie_data_count(data)
+    #     to_plot = DataFixer(self.__get_chart_data(sql))
+    #     return self.__graph_view.plot_pie(title, to_plot.get_new_list_label()
+    #                                       , to_plot.get_new_list_data())
+
+    # def chart_bar(self, title, x, y, top):
+    #     """
+    #     generates a sql and generates a bar chart with the queried data
+    #     :param title: The chart title
+    #     :param x: The data to be on axis x (label)
+    #     :param y: The data to be on axis y
+    #     :param top: The amount of results to graph
+    #     :return: True if plotted
+    #     """
+    #     sql = self.__query_creator.get_bar_data(x, y, top)
+    #     to_plot = DataFixer(self.__get_chart_data(sql))
+    #     return self.__graph_view.plot_bar(title, x, y,
+    #                                       to_plot.get_new_list_label(),
+    #                                       to_plot.get_new_list_data())

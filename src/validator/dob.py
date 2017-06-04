@@ -28,7 +28,7 @@ class DOB(ValidateField, AgeValidate):
         self.__check_date(date_fields)
 
         if self.__correctDate is True:
-            return self.VALID
+            return self._VALID
         else:
             return 'DOB is not a legal date'
 

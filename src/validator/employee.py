@@ -61,13 +61,13 @@ class Employee(EmployeeBase):
 
         for i in my_fields:
             val = i.validate()
-            if val != ValidateField.VALID:
+            if val != ValidateField.get_valid():
                 is_valid = False
                 tags.append(val)
 
         age = my_fields[self.__INDEX['Age']].get_field()
         val = my_fields[self.__INDEX['DOB']].check_age_against_date(age)
-        if val != ValidateField.VALID:
+        if val != ValidateField.get_valid():
             tags.append(val)
             is_valid = False
 

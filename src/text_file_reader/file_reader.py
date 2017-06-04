@@ -22,6 +22,7 @@ class FileReader(FileBase):
                 split_line = self.__into_parts(line)
                 file_list.append(split_line)
 
+            file_object.close()
             return file_list
         except FileNotFoundError as e:
             print(e)

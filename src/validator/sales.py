@@ -15,6 +15,6 @@ class Sales(ValidateFieldNumber):
         """
         if re.match('^[0-9]{2,3}$', self._field) is not None:
             self._field_number = int(self._field)
-            return self.VALID
+            return self._VALID
         else:
             return 'Sales must be 2 or 3 numbers'

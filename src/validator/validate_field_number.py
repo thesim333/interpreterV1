@@ -4,7 +4,7 @@ from .validate_field import ValidateField
 from abc import ABCMeta, abstractmethod
 
 
-class ValidateFieldNumber(metaclass=ABCMeta, ValidateField):
+class ValidateFieldNumber(ValidateField, metaclass=ABCMeta):
     # __metaclass__ = ABCMeta
     """
     ABC for validate field children that return an int

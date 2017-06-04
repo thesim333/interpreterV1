@@ -14,6 +14,6 @@ class EmpID(ValidateField):
         :return: Valid or Employee ID must be of format "X000"
         """
         if re.match('^[A-Z][0-9]{3}$', self._field) is not None:
-            return self.VALID
+            return self._VALID
         else:
             return 'Employee ID must be of format "X000"'
