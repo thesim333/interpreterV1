@@ -4,7 +4,9 @@ import json
 from src.text_file_reader.file_reader import FileReader
 from src.database.myslq_database import DatabaseView
 from src.serial.serial import Serial
-from src.validator.employee import Employee
+from src.validator.validate_field import ValidateField
+from src.validator.employee_director import EmployeeDirector
+from src.validator.employee_builder import EmployeeBuilder
 from .controller_base import ControllerBase
 from src.graph.graph_director import GraphDirector
 from src.graph.pie_graph_builder import PieGraphBuilder
@@ -31,25 +33,33 @@ class Controller(ControllerBase):
         data = self.__file_view.get_file_data(path)
 
         if data is not None:
-            self.__validate_contents(data)
+            self._cycle_contents(data)
         else:
-            print(data)
+            print("No data to validate")
 
-    def __validate_contents(self, content):
-        employee = Employee()
+    def _cycle_contents(self, content):
         self.__current_list = []
-        for i, x in enumerate(content):
-            result = employee.add_list(x)
-            if 'fields' in result:
-                self.__current_list.append(result['fields'])
+        for i, line in enumerate(content):
+            self._validate_contents(line, i)
+
+    def _validate_contents(self, line, number):
+        if len(line) == 7:
+            director = EmployeeDirector()
+            builder = EmployeeBuilder(line)
+            director.build_new_employee(builder)
+            employee = builder.get_employee()
+            validation = employee.get_validity_or_reason_tags()
+
+            if validation == ValidateField.get_valid():
+                fields = employee.get_formatted_fields()
+                self.__current_list.append(fields)
+                return fields
             else:
-                x = result['tags']
-                print('{} {}'.format(i, ' '.join(x)))
-
-    def __to_lists(self, list_of_employees):
-        self.__current_list = []
-        for emp in list_of_employees:
-            self.__current_list.append(emp.to_list())
+                print('{} {}'.format(number, ', '.join(validation)))
+                return '{} {}'.format(number, ', '.join(validation))
+        else:
+            print('{} Not correct number of fields'.format(number))
+            return '{} Not correct number of fields'.format(number)
 
     def pickle(self, args):
         """

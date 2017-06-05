@@ -12,8 +12,10 @@ class DOB(ValidateField, AgeValidate):
     Holds a DOB date to be validated
     Checks the DOB is valid to an age
     """
-    __correctDate = None
-    __date = None
+    def __init__(self, field):
+        super().__init__(field)
+        self.__correctDate = None
+        self.__date = None
 
     def validate(self):
         """

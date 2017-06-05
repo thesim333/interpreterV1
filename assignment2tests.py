@@ -11,6 +11,9 @@ from src.validator.sales import Sales
 from src.controller.controller import Controller
 from src.controller.view import View
 from src.validator.employee import Employee
+from src.validator.employee_builder import EmployeeBuilder
+from src.validator.employee_director import EmployeeDirector
+from src.validator.validate_field import ValidateField
 
 
 class Assignment2Tests(unittest.TestCase):
@@ -159,19 +162,25 @@ class Assignment2Tests(unittest.TestCase):
         self.assertEqual(self.controller.chart_pie('Staff Gender', 'Gender'), True)
 
     def test_employee_valid_input(self):
-        employee = Employee()
         the_list = ["E123", "M", "34", "99", "Normal", "99", self.valid_birthday]
-        self.assertEqual(employee.add_list(the_list), {'fields': ['E123', 'M', 34, 99, 'Normal', 99, '1982-08-09']})
+        director = EmployeeDirector()
+        builder = EmployeeBuilder(the_list)
+        director.build_new_employee(builder)
+        employee = builder.get_employee()
+        self.assertEqual(employee.get_validity_or_reason_tags(), ValidateField.get_valid())
+        self.assertEqual(employee.get_formatted_fields(), ['E123', 'M', 34, 99, 'Normal', 99, '1982-08-09'])
 
     def test_employee_missing_fields(self):
-        employee = Employee()
-        the_list = ["E123", "M"]
-        self.assertEqual(employee.add_list(the_list), {'tags': ['Not correct number of fields']})
+        result = self.controller._validate_contents(["E123", "M"], 0)
+        self.assertEqual(result, '0 Not correct number of fields')
 
     def test_employee_invalid_fields(self):
-        employee = Employee()
-        the_list = ["E123", "M", "23", "0", "Normal", "99", self.valid_birthday]
-        self.assertEqual(employee.add_list(the_list), {'tags': ['Sales must be 2 or 3 numbers', 'Age does not match DOB']})
+        result = self.controller._validate_contents(["E123", "M", "23", "0", "Normal", "99", self.valid_birthday], 0)
+        self.assertEqual(result, '0 Sales must be 2 or 3 numbers, Age does not match DOB')
+
+    def test_employee_valid_input_controller(self):
+        result = self.controller._validate_contents(["E123", "M", "34", "99", "Normal", "99", self.valid_birthday], 0)
+        self.assertEqual(result, ['E123', 'M', 34, 99, 'Normal', 99, '1982-08-09'])
 
 if __name__ == '__main__':
     unittest.main()
