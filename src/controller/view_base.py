@@ -6,7 +6,8 @@ from abc import abstractstaticmethod
 
 
 class ViewBase(metaclass=ABCMeta):
-    _controller = None
+    def __init__(self):
+        self._controller = None
 
     def inject_controller(self, ctrl):
         self._controller = ctrl

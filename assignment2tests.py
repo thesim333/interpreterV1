@@ -10,7 +10,6 @@ from src.validator.salary import Salary
 from src.validator.sales import Sales
 from src.controller.controller import Controller
 from src.controller.view import View
-from src.validator.employee import Employee
 from src.validator.employee_builder import EmployeeBuilder
 from src.validator.employee_director import EmployeeDirector
 from src.validator.validate_field import ValidateField

@@ -37,6 +37,7 @@ class Employee(EmployeeBase):
             val = field.validate()
             if val != ValidateField.get_valid():
                 tags.append(val)
+        
         age = self.__fields.get("Age").get_field()
         val = self.__fields.get("DOB").check_age_against_date(age)
 
