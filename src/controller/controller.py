@@ -119,13 +119,16 @@ class Controller(ControllerBase):
             self.__database_view.save_data_to_new(self.__current_list)
 
     def chart_pie(self, title, data, label=None):
-        director = GraphDirector(PieGraphBuilder(self.__database_view, title, data, label))
-        director.make_chart()
-        return True
-
+        return self.__make_chart(PieGraphBuilder(self.__database_view, title, data, label))
+        
     def chart_bar(self, title, x, y, top):
-        director = GraphDirector(BarGraphBuilder(self.__database_view, title, x, y, top))
+        return self.__make_chart(BarGraphBuilder(self.__database_view, title, x, y, top))
+
+    def __make_chart(self, builder):
+        director = GraphDirector(builder)
         director.make_chart()
+        plt = builder.get_chart()
+        plt.show()
         return True
 
     # def chart_pie(self, title, data, label=None):

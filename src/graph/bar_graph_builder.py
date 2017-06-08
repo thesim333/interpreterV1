@@ -29,7 +29,7 @@ class BarGraphBuilder(GraphBuilder):
         self._get_data_from_db(sql)
 
     def get_chart(self):
-        plt.show()
+        return plt
 
     def __get_query_string(self):
         start = "SELECT {0},{1} FROM Employee ORDER BY ".format(self.__x, self.__y)

@@ -26,7 +26,7 @@ class PieGraphBuilder(GraphBuilder):
         self._get_data_from_db(sql)
 
     def get_chart(self):
-        plt.show()
+        return plt
 
     def __get_pie_data_sum(self):
         start = "SELECT {},SUM({}) FROM Employee ".format(self.__before_label, self.__before_data)

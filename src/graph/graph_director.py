@@ -9,4 +9,3 @@ class GraphDirector(object):
         self.__builder.get_data_for_chart()
         self.__builder.create_chart_structure()
         self.__builder.set_titles()
-        self.__builder.get_chart()
